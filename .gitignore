@@ -1,0 +1,11 @@
+# Desktop Files
+.vscode/
+.env
+
+# JS
+node_modules/
+build/
+
+# misc
+.DS_Store
+._.DS_Store
