@@ -1,0 +1,19 @@
+button {
+  height: 40px;
+  outline: none;
+  border: none;
+  border-radius: 60px;
+  padding: 5px 20px;
+  color: white;
+  font: 20px Poppins;
+  cursor: pointer;
+  background-color: #58b560;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.spotify-logo {
+  width: 25px;
+  margin-right: 10px;
+}
