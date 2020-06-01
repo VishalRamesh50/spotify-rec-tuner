@@ -1,9 +1,9 @@
 import React from 'react'
 
 import SpotifyLogin from './components/SpotifyLogin/SpotifyLogin'
-import './App.css'
+import './home.css'
 
-const App = () => {
+const Home = () => {
   return (
     <div>
       <header>
@@ -18,4 +18,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Home
