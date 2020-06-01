@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SpotifyLoginButton from './components/SpotifyLoginButton/SpotifyLoginButton'
+import SpotifyLogin from './components/SpotifyLogin/SpotifyLogin'
 import './App.css'
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
       </header>
 
       <section className="sign-in-area">
-        <SpotifyLoginButton />
+        <SpotifyLogin />
       </section>
     </div>
   )
