@@ -4,7 +4,7 @@ import './spotify-login.css'
 
 const SpotifyLogin = () => {
   return (
-    <a className="login" href="http://localhost:3001/api/spotify/login">
+    <a className="login" href="http://localhost:3001/login">
       <img
         className="spotify-logo"
         src="spotify-logo.png"
