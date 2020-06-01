@@ -1,15 +1,13 @@
-button {
+.login {
+  text-decoration: none;
   height: 40px;
-  outline: none;
-  border: none;
   border-radius: 60px;
   padding: 5px 20px;
   color: white;
   font: 20px Poppins;
-  cursor: pointer;
   background-color: #58b560;
-  text-align: center;
   display: flex;
+  text-align: center;
   align-items: center;
 }
 

@@ -1,18 +1,18 @@
 import React from 'react'
 
-import './spotify-login-button.css'
+import './spotify-login.css'
 
-const SpotifyLoginButton = () => {
+const SpotifyLogin = () => {
   return (
-    <button>
+    <a className="login" href="http://localhost:3001/api/spotify/login">
       <img
         className="spotify-logo"
         src="spotify-logo.png"
         alt="white spotify logo"
       ></img>
       Log In with Spotify
-    </button>
+    </a>
   )
 }
 
-export default SpotifyLoginButton
+export default SpotifyLogin
