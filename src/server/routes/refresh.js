@@ -13,6 +13,7 @@ router.get('/refresh', (req, res) => {
 
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
+    method: 'POST',
     headers: {
       Authorization:
         'Basic ' +
@@ -27,14 +28,16 @@ router.get('/refresh', (req, res) => {
     json: true,
   }
 
-  axios.post(authOptions, (error, response, body) => {
-    if (!error && response.statusCode === 200) {
-      const access_token = body.access_token
+  axios(authOptions)
+    .then(response => {
+      const access_token = response.data.access_token
       res.send({ access_token })
-    } else {
+    })
+    .catch(err => {
+      console.error('There was an error with refresh')
+      console.error(err)
       res.status(401).send()
-    }
-  })
+    })
 })
 
 module.exports = router
