@@ -8,14 +8,14 @@ router.get('/callback', (req, res) => {
 
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
+    method: 'POST',
     headers: {
-      Authorization:
-        'Basic ' +
-        Buffer.from(
-          `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`,
-        ).toString('base64'),
+      Authorization: `Basic ${Buffer.from(
+        `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`,
+      ).toString('base64')}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
-    form: {
+    params: {
       code: code,
       redirect_uri: process.env.REDIRECT_URI,
       grant_type: 'authorization_code',
@@ -23,18 +23,19 @@ router.get('/callback', (req, res) => {
     json: true,
   }
 
-  axios.post(authOptions, (error, response, body) => {
-    if (!error && res.statusCode === 200) {
-      res.cookie('ACCESS_TOKEN', body.access_token)
-      res.cookie('REFRESH_TOKEN', body.refresh_token)
+  axios(authOptions)
+    .then(response => {
+      res.cookie('ACCESS_TOKEN', response.data.access_token)
+      res.cookie('REFRESH_TOKEN', response.data.refresh_token)
       res.cookie('REFRESH_CODE', code)
 
       res.redirect('http://localhost:3000/tuner')
-    } else {
-      res.redirect('/')
+    })
+    .catch(err => {
       console.error('There was an error in authentication. Try again.')
-    }
-  })
+      console.error(err)
+      res.redirect('http://localhost:3000')
+    })
 })
 
 module.exports = router
