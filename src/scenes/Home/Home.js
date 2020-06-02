@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       <header>
         <div class="header__bg"></div>
-        <h1>Spotify Recommendation Tuner</h1>
+        <h1 className="title">Spotify Recommendation Tuner</h1>
       </header>
 
       <section className="sign-in-area">
