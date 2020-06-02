@@ -7,11 +7,11 @@ import './slider.css'
 
 export default function RangeSlider({ name }) {
   const generateRandomRange = () => {
-    let x = Math.random().toFixed(2)
-    let y = Math.random().toFixed(2)
+    let x = +Math.random().toFixed(2)
+    let y = +Math.random().toFixed(2)
     while (Math.abs(x - y) < 0.3 || Math.abs(x - y) > 0.7) {
-      x = Math.random().toFixed(2)
-      y = Math.random().toFixed(2)
+      x = +Math.random().toFixed(2)
+      y = +Math.random().toFixed(2)
     }
     return [x, y]
   }
