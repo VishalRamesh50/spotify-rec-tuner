@@ -1,0 +1,35 @@
+.side-panel {
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(18, 18, 18);
+  width: fit-content;
+  height: 100vh;
+}
+
+.side-panel a {
+  color: inherit;
+  font-size: 28px;
+}
+
+.MuiSvgIcon-root {
+  margin-bottom: 10px;
+}
+
+.tuner {
+  display: flex;
+}
+
+.recommendations {
+  background-image: linear-gradient(rgb(40, 40, 40), rgb(18, 18, 18));
+  width: 100%;
+}
+
+.recommendations h1 {
+  color: white;
+  text-transform: uppercase;
+  font: 48px Poppins;
+  margin: 20px 20px;
+  font-weight: 1000;
+}
