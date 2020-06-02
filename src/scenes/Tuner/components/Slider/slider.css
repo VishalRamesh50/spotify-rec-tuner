@@ -1,0 +1,19 @@
+.MuiSlider-root {
+  color: #58b560;
+  width: 200px;
+  padding-top: 8px;
+  padding-bottom: 0;
+  margin-bottom: 15px;
+}
+
+#range-slider {
+  margin: 0;
+}
+
+.MuiButtonBase-root {
+  background-color: #65d36e;
+}
+
+.MuiButtonBase-root:hover {
+  background-color: #58b560;
+}
