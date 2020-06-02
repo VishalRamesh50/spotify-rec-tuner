@@ -13,7 +13,7 @@ header {
   background-image: linear-gradient(#ff9d2f, #ff6126);
 }
 
-header h1 {
+.title {
   position: relative;
   color: white;
   padding: 100px 0;
