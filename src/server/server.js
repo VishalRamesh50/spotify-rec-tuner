@@ -4,6 +4,7 @@ require('dotenv').config()
 const callback = require('./routes/callback')
 const login = require('./routes/login')
 const refresh = require('./routes/refresh')
+const recommendations = require('./routes/recommendations')
 
 const app = express()
 const port = 3001
@@ -21,5 +22,6 @@ app.use(allowOrigin)
 app.use(login)
 app.use(callback)
 app.use(refresh)
+app.use(recommendations)
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))
