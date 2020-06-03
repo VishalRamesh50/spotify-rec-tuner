@@ -1,12 +1,35 @@
+import axios from 'axios'
 import React from 'react'
 import HomeIcon from '@material-ui/icons/Home'
 import Button from '@material-ui/core/Button'
 import { StylesProvider } from '@material-ui/core/styles'
 
 import Slider from './components/Slider/slider'
+import SongResult from './components/SongResult/songResult'
 import './tuner.css'
 
 const Tuner = () => {
+  const [recommendations, setRecommendations] = React.useState([])
+
+  const getRecommendations = () => {
+    const cookies = document.cookie.split(';')
+    const access_token = cookies[0].split('=')[1]
+    const refresh_token = cookies[1].split('=')[1]
+    axios
+      .get('http://localhost:3001/recommendations', {
+        params: {
+          access_token: access_token,
+          refresh_token: refresh_token,
+          limit: 12,
+          min_popularity: 15,
+          seed_genres: 'pop',
+        },
+      })
+      .then(function (response) {
+        setRecommendations(response.data.tracks)
+      })
+  }
+
   return (
     <div className="tuner">
       <div className="side-panel">
@@ -24,7 +47,11 @@ const Tuner = () => {
         <Slider name="Tempo"></Slider>
         <Slider name="Valence"></Slider>
         <StylesProvider injectFirst>
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={getRecommendations}
+          >
             Update
           </Button>
         </StylesProvider>
@@ -33,6 +60,17 @@ const Tuner = () => {
         <header>
           <h1>Recommendations</h1>
         </header>
+        <div className="song-results">
+          {recommendations.map(track => (
+            <SongResult
+              key={track.id}
+              songName={track.name}
+              artistName={track.artists[0].name}
+              albumUrl={track.album.images[1].url}
+            ></SongResult>
+          ))}
+          {console.log(recommendations)}
+        </div>
       </div>
     </div>
   )

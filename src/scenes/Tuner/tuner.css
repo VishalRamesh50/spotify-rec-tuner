@@ -22,14 +22,20 @@
 }
 
 .recommendations {
+  padding: 20px 20px;
   background-image: linear-gradient(rgb(40, 40, 40), rgb(18, 18, 18));
   width: 100%;
 }
 
 .recommendations h1 {
+  margin-bottom: 20px;
   color: white;
   text-transform: uppercase;
   font: 48px Poppins;
-  margin: 20px 20px;
   font-weight: 1000;
+}
+
+.song-results {
+  display: flex;
+  flex-flow: row wrap;
 }
