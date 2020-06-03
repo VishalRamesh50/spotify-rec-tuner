@@ -5,7 +5,7 @@
   padding: 5px 20px;
   color: white;
   font: 20px Poppins;
-  background-color: #58b560;
+  background-color: var(--spotify-green);
   display: flex;
   text-align: center;
   align-items: center;
