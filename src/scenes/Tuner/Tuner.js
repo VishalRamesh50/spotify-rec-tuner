@@ -16,21 +16,23 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
     display: 'flex',
     flexDirection: 'column',
-    padding: '15px 20px',
+    padding: theme.spacing(2, 2),
     backgroundColor: 'rgb(18, 18, 18)',
     width: 'fit-content',
     height: '100vh',
     '& a': {
       color: 'inherit',
-      fontSize: '28px',
+      fontSize: 28,
     },
   },
   homeIcon: {
-    marginBottom: '10px',
+    marginBottom: theme.spacing(1),
   },
   updateButton: {
-    backgroundColor: '#1db954',
-    padding: '5px 0 !important',
+    backgroundColor: theme.root.spotifyGreen,
+    padding: theme.spacing(1, 0),
+    marginTop: theme.spacing(2),
+    maxWidth: 380,
   },
   recommendations: {
     padding: theme.spacing(3, 3),
@@ -38,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     '& h1': {
       color: 'white',
-      marginBottom: '20px',
+      marginBottom: theme.spacing(2),
       textTransform: 'uppercase',
       font: '48px Poppins',
       fontWeight: 1000,

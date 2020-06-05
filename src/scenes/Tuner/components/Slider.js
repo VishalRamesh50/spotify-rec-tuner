@@ -19,9 +19,9 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0),
   },
   checkbox: {
-    padding: '0 !important',
-    paddingTop: '9px !important',
-    marginRight: '9px',
+    padding: theme.spacing(0),
+    paddingTop: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
 }))
 

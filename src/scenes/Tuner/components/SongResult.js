@@ -6,14 +6,14 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   songResult: {
-    marginBottom: '15px',
+    marginBottom: theme.spacing(1.5),
   },
   albumCover: {
     float: 'left',
     position: 'relative',
     '& img': {
       width: '200px',
-      marginRight: '40px',
+      marginRight: theme.spacing(4),
       transition: 'all 0.3s ease',
     },
     '&:hover img': {
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
   },
   songName: {
-    fontSize: '18px',
+    fontSize: 18,
     width: '150px',
     minHeight: '2em',
     overflow: 'hidden',
@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   },
   artistName: {
     maxWidth: '150px',
-    fontSize: '16px',
+    fontSize: 16,
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-line-clamp': 2,

@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles(theme => ({
   autocomplete: {
     color: 'white',
-    marginBottom: '20px',
+    marginBottom: theme.spacing(2),
     width: '200px',
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: '#1db954',
