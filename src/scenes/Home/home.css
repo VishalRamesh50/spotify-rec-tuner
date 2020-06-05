@@ -34,21 +34,21 @@ section {
   z-index: -1;
 }
 
-button {
+.sign-in-area button {
   position: relative;
   bottom: -5vh;
 }
 
 @media screen and (max-width: 480px) {
-  header {
+  .main-info header {
     height: 65vh;
   }
 
-  header h1 {
+  .main-info header h1 {
     font: 44px Poppins;
   }
 
-  button {
+  .sign-in-area button {
     position: relative;
     bottom: 0;
   }
