@@ -4,9 +4,9 @@ import React from 'react'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 
-import GenreSelector from './components/GenreSelecter/GenreSelector'
-import Slider from './components/Slider/slider'
-import SongResult from './components/SongResult/songResult'
+import GenreSelector from './components/GenreSelector'
+import Slider from './components/Slider'
+import SongResult from './components/SongResult'
 
 const useStyles = makeStyles(theme => ({
   tuner: {
