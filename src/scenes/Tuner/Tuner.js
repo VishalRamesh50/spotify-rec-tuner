@@ -42,6 +42,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1, 0),
     marginTop: theme.spacing(2),
     maxWidth: 380,
+    '&:hover': {
+      backgroundColor: 'rgb(30,215,96)',
+    },
   },
   recommendations: {
     padding: theme.spacing(3, 3),
