@@ -16,6 +16,10 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(0),
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      width: '75vw',
+      maxWidth: '300px',
+    },
   },
   sliderName: {
     margin: theme.spacing(0),

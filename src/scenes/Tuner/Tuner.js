@@ -11,6 +11,10 @@ import SongResult from './components/SongResult'
 const useStyles = makeStyles(theme => ({
   tuner: {
     display: 'flex',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+    },
   },
   sidePanel: {
     color: 'white',
@@ -19,10 +23,15 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 2),
     backgroundColor: 'rgb(18, 18, 18)',
     width: 'fit-content',
-    height: '100vh',
+    minHeight: '100vh',
     '& a': {
       color: 'inherit',
       fontSize: 28,
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      paddingLeft: theme.spacing(4),
+      minHeight: 0,
     },
   },
   homeIcon: {
@@ -37,6 +46,9 @@ const useStyles = makeStyles(theme => ({
   recommendations: {
     padding: theme.spacing(3, 3),
     backgroundImage: 'linear-gradient(rgb(40, 40, 40), rgb(18, 18, 18))',
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2, 1),
+    },
     width: '100%',
     '& h1': {
       color: 'white',
@@ -44,11 +56,27 @@ const useStyles = makeStyles(theme => ({
       textTransform: 'uppercase',
       font: '48px Poppins',
       fontWeight: 1000,
+      [theme.breakpoints.down('sm')]: {
+        font: '5vw Poppins',
+        fontWeight: 800,
+      },
+      [theme.breakpoints.down('xs')]: {
+        font: '32px Poppins',
+        fontWeight: 800,
+      },
     },
   },
   songResults: {
     display: 'flex',
     flexFlow: 'row wrap',
+    [theme.breakpoints.down('sm')]: {
+      flexFlow: 'column',
+      alignItems: 'center',
+    },
+    [theme.breakpoints.down('xs')]: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   },
 }))
 

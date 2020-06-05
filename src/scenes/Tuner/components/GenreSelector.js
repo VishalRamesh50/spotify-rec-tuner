@@ -12,10 +12,15 @@ const useStyles = makeStyles(theme => ({
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.root.spotifyGreen,
     },
+    '& .MuiSvgIcon-root': {
+      color: 'white',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '300px',
+    },
   },
   autocompleteOption: {
     padding: theme.spacing(0),
-    height: '40px',
   },
   input: {
     color: 'white',
@@ -47,7 +52,6 @@ export default function CheckboxesTags({ setSelectedSeedGenres }) {
         </React.Fragment>
       )}
       renderInput={params => {
-        console.log(params)
         return (
           <TextField
             InputProps={{
