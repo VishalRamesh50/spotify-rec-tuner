@@ -4,13 +4,15 @@ import Slider from '@material-ui/core/Slider'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { theme } from '../../../index'
+
 const useStyles = makeStyles(theme => ({
   selector: {
     display: 'flex',
   },
   slider: {
     width: '200px',
-    color: '#1db954',
+    color: theme.root.spotifyGreen,
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(0),
     marginBottom: theme.spacing(1),
@@ -58,7 +60,7 @@ const RangeSlider = ({ name, min, max, step }) => {
       <Checkbox
         className={classes.checkbox}
         style={{
-          color: '#1db954',
+          color: theme.root.spotifyGreen,
         }}
         onChange={() => setSelected(!selected)}
       />

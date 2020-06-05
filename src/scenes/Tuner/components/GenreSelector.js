@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
     width: '200px',
     '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: '#1db954',
+      borderColor: theme.root.spotifyGreen,
     },
   },
   autocompleteOption: {
