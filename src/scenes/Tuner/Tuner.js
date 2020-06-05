@@ -82,19 +82,21 @@ const Tuner = () => {
     const access_token = cookies[0].split('=')[1]
     const refresh_token = cookies[1].split('=')[1]
     axios
-      .get('http://localhost:3001/recommendations', {
+      .get(`http://${process.env.REACT_APP_HOST}:3001/recommendations`, {
         params: {
           access_token: access_token,
           refresh_token: refresh_token,
-          limit: 12,
           market: 'US',
           seed_genres: seedGenres,
           ...attributes,
         },
       })
       .then(function (response) {
-        console.log(response.data.tracks)
         setRecommendations(response.data.tracks)
+      })
+      .catch(err => {
+        console.error('Some error calling /recommendations')
+        console.error(err)
       })
   }
 

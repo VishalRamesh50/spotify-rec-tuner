@@ -33,7 +33,7 @@ router.get('/recommendations', async (req, res) => {
     console.log('inside if condition')
     const refresh_token = req.query.refresh_token
     axios
-      .get('http://localhost:3001/refresh', {
+      .get(`http://${process.env.EXPRESS_HOST}:3001/refresh`, {
         params: { refresh_token: refresh_token },
       })
       .then(async response => {
@@ -46,7 +46,7 @@ router.get('/recommendations', async (req, res) => {
           res.send(recommendations.data)
         } else {
           console.log('Tell them to authenticate again')
-          //   res.redirect('http://localhost:3001/login')
+          res.redirect(`http://${process.env.EXPRESS_HOST}:3001/login`)
         }
       })
   } else if (recommendations.status === 200) {
