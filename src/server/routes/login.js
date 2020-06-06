@@ -3,13 +3,15 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/login', (req, res) => {
-  let scopes = ''
+  const showDialog = req.query.show_dialog || false
+  let scopes = 'user-modify-playback-state,user-library-modify'
   res.redirect(
     'https://accounts.spotify.com/authorize' +
       '?response_type=code' +
       `&client_id=${process.env.CLIENT_ID}` +
       `&scope=${encodeURIComponent(scopes)}` +
-      `&redirect_uri=${encodeURIComponent(process.env.REDIRECT_URI)}`,
+      `&redirect_uri=${encodeURIComponent(process.env.REDIRECT_URI)}` +
+      `&show_dialog=${showDialog}`,
   )
 })
 
