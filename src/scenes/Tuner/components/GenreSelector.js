@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   autocomplete: {
     color: 'white',
     marginBottom: theme.spacing(2),
-    width: '200px',
+    width: '300px',
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.root.spotifyGreen,
     },
@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
       color: 'white',
     },
     [theme.breakpoints.down('xs')]: {
-      width: '300px',
+      width: 'unset',
+      maxWidth: '300px',
     },
   },
   autocompleteOption: {
@@ -36,6 +37,7 @@ export default function CheckboxesTags({ setSelectedSeedGenres }) {
   return (
     <Autocomplete
       multiple
+      limitTags={2}
       id="checkboxes-tags-demo"
       className={classes.autocomplete}
       classes={{
