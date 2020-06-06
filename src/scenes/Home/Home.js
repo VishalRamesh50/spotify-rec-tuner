@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="main-info">
       <header>
-        <div class="header__bg"></div>
+        <div className="header__bg"></div>
         <h1 className="title">Spotify Recommendation Tuner</h1>
       </header>
 

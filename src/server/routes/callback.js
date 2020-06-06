@@ -29,12 +29,12 @@ router.get('/callback', (req, res) => {
       res.cookie('REFRESH_TOKEN', response.data.refresh_token)
       res.cookie('REFRESH_CODE', code)
 
-      res.redirect(`http://${process.env.FRONTEND_HOST}:3000/tuner`)
+      res.redirect(`${process.env.FRONTEND_HOST}/tuner`)
     })
     .catch(err => {
       console.error('There was an error in authentication. Try again.')
       console.error(err)
-      res.redirect(`http://${process.env.FRONTEND_HOST}:3000`)
+      res.redirect(`${process.env.FRONTEND_HOST}`)
     })
 })
 

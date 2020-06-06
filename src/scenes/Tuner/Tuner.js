@@ -115,7 +115,7 @@ const Tuner = () => {
     const access_token = cookies[0].split('=')[1]
     const refresh_token = cookies[1].split('=')[1]
     axios
-      .get(`http://${process.env.REACT_APP_HOST}:3001/recommendations`, {
+      .get(`${process.env.REACT_APP_HOST}/recommendations`, {
         params: {
           access_token: access_token,
           refresh_token: refresh_token,
