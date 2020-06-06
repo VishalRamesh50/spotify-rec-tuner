@@ -4,7 +4,9 @@ import React from 'react'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 
+import ErrorAlert from './components/ErrorAlert'
 import GenreSelector from './components/GenreSelector'
+import ResultsAlert from './components/ResultsAlert'
 import Slider from './components/Slider'
 import SongResult from './components/SongResult'
 
@@ -59,12 +61,12 @@ const useStyles = makeStyles(theme => ({
       textTransform: 'uppercase',
       font: '48px Poppins',
       fontWeight: 1000,
-      [theme.breakpoints.down('sm')]: {
-        font: '5vw Poppins',
+      [theme.breakpoints.down('md')]: {
+        font: '4vw Poppins',
         fontWeight: 800,
       },
       [theme.breakpoints.down('xs')]: {
-        font: '32px Poppins',
+        font: '28px Poppins',
         fontWeight: 800,
       },
     },
@@ -90,11 +92,17 @@ const Tuner = () => {
 
   const [recommendations, setRecommendations] = React.useState([])
   const [selectedSeedGenres, setSelectedSeedGenres] = React.useState([])
+  const [submitted, setSubmitted] = React.useState(false)
+  const [formError, setFormError] = React.useState(false)
 
   const getRecommendations = () => {
     if (selectedSeedGenres.length === 0) {
+      setFormError(true)
+      setRecommendations([])
+      setSubmitted(false)
       return
     }
+    setFormError(false)
     let attributes = {}
     const sliderTitleElements = document.getElementsByClassName(
       'MuiTypography-root',
@@ -130,6 +138,7 @@ const Tuner = () => {
       })
       .then(res => {
         setRecommendations(res.data.tracks)
+        setSubmitted(true)
       })
       .catch(err => {
         window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
@@ -144,7 +153,10 @@ const Tuner = () => {
         <a href="/">
           <HomeIcon className={classes.homeIcon} fontSize="inherit"></HomeIcon>
         </a>
-        <GenreSelector setSelectedSeedGenres={setSelectedSeedGenres} />
+        <GenreSelector
+          setSelectedSeedGenres={setSelectedSeedGenres}
+          error={formError}
+        />
         <Slider name="Acousticness" min={0} max={1} step={0.01}></Slider>
         <Slider name="Danceability" min={0} max={1} step={0.01}></Slider>
         <Slider name="Energy" min={0} max={1} step={0.01}></Slider>
@@ -168,16 +180,25 @@ const Tuner = () => {
         <header>
           <h1>Recommendations</h1>
         </header>
-        <div className={classes.songResults}>
-          {recommendations.map(track => (
-            <SongResult
-              key={track.id}
-              songName={track.name}
-              artistName={track.artists[0].name}
-              albumUrl={track.album.images[1].url}
-            ></SongResult>
-          ))}
-        </div>
+        {formError ? (
+          <ErrorAlert open={formError} setOpen={setFormError} />
+        ) : (
+          <>
+            {submitted ? (
+              <ResultsAlert numResults={recommendations.length} />
+            ) : null}
+            <div className={classes.songResults}>
+              {recommendations.map(track => (
+                <SongResult
+                  key={track.id}
+                  songName={track.name}
+                  artistName={track.artists[0].name}
+                  albumUrl={track.album.images[1].url}
+                ></SongResult>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
