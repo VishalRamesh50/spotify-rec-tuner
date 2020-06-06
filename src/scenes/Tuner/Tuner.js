@@ -128,12 +128,11 @@ const Tuner = () => {
           ...attributes,
         },
       })
-      .then(function (response) {
-        setRecommendations(response.data.tracks)
+      .then(res => {
+        setRecommendations(res.data.tracks)
       })
       .catch(err => {
-        console.error('Some error calling /recommendations')
-        console.error(err)
+        window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
       })
   }
 
