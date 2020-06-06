@@ -4,8 +4,6 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/callback', (req, res) => {
-  const code = req.query.code || null
-
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     method: 'POST',
@@ -16,18 +14,21 @@ router.get('/callback', (req, res) => {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     params: {
-      code: code,
-      redirect_uri: process.env.REDIRECT_URI,
       grant_type: 'authorization_code',
+      code: req.query.code,
+      redirect_uri: process.env.REDIRECT_URI,
     },
     json: true,
   }
 
   axios(authOptions)
     .then(response => {
-      res.cookie('ACCESS_TOKEN', response.data.access_token)
-      res.cookie('REFRESH_TOKEN', response.data.refresh_token)
-      res.cookie('REFRESH_CODE', code)
+      res.cookie('ACCESS_TOKEN', response.data.access_token, {
+        overwrite: true,
+      })
+      res.cookie('REFRESH_TOKEN', response.data.refresh_token, {
+        overwrite: true,
+      })
 
       res.redirect(`${process.env.FRONTEND_HOST}/tuner`)
     })
