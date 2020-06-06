@@ -12,7 +12,25 @@ const useStyles = makeStyles(theme => ({
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.root.spotifyGreen,
     },
+    '& :hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'rgb(30,215,96)',
+    },
+    '& :not(:focus) .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'rgb(30,215,96)',
+    },
     '& .MuiSvgIcon-root': {
+      color: 'white',
+    },
+    '& span.MuiAutocomplete-tag': {
+      color: 'white',
+    },
+    '& .MuiButtonBase-root': {
+      color: 'white',
+    },
+    '& .MuiInputBase-input': {
+      color: 'white',
+    },
+    '& .MuiFormLabel-root': {
       color: 'white',
     },
     [theme.breakpoints.down('xs')]: {
@@ -23,12 +41,9 @@ const useStyles = makeStyles(theme => ({
   autocompleteOption: {
     padding: theme.spacing(0),
   },
-  input: {
-    color: 'white',
-  },
 }))
 
-export default function CheckboxesTags({ setSelectedSeedGenres }) {
+export default function CheckboxesTags({ setSelectedSeedGenres, error }) {
   const classes = useStyles()
   const onChange = (event, selectedItems) => {
     setSelectedSeedGenres(selectedItems)
@@ -53,21 +68,9 @@ export default function CheckboxesTags({ setSelectedSeedGenres }) {
           {option}
         </React.Fragment>
       )}
-      renderInput={params => {
-        return (
-          <TextField
-            InputProps={{
-              className: classes.input,
-            }}
-            {...params}
-            variant="outlined"
-            label="Seed Genres"
-            InputLabelProps={{
-              className: classes.input,
-            }}
-          />
-        )
-      }}
+      renderInput={params => (
+        <TextField {...params} variant="outlined" label="Seed Genres" />
+      )}
     />
   )
 }
