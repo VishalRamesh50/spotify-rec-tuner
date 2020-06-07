@@ -191,6 +191,7 @@ const Tuner = () => {
               {recommendations.map(track => (
                 <SongResult
                   key={track.id}
+                  id={track.id}
                   songName={track.name}
                   artistName={track.artists[0].name}
                   albumUrl={track.album.images[1].url}

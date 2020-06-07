@@ -1,7 +1,8 @@
-import React from 'react'
-import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow'
+import React from 'react'
+import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -71,18 +72,41 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const SongResult = ({ albumUrl, songName, artistName }) => {
+const SongResult = ({ id, albumUrl, songName, artistName }) => {
   const classes = useStyles()
   const [liked, setLiked] = React.useState(false)
 
   const toggleLike = () => {
     const newLikedState = !liked
-    setLiked(newLikedState)
+    const cookies = document.cookie.split(';')
+    const access_token = cookies[0].split('=')[1]
+    const refresh_token = cookies[1].split('=')[1]
     if (newLikedState) {
-      console.log('Add this track to the liked song for the user')
+      axios
+        .put(`${process.env.REACT_APP_HOST}/tracks`, null, {
+          params: {
+            access_token: access_token,
+            refresh_token: refresh_token,
+            id: id,
+          },
+        })
+        .catch(() => {
+          console.error('Some error liking track')
+        })
     } else {
-      console.log('Remove this track from the liked song for the user')
+      axios
+        .delete(`${process.env.REACT_APP_HOST}/tracks`, {
+          params: {
+            access_token: access_token,
+            refresh_token: refresh_token,
+            id: id,
+          },
+        })
+        .catch(() => {
+          console.error('Some error unliking track')
+        })
     }
+    setLiked(newLikedState)
   }
 
   return (
