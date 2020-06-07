@@ -4,7 +4,7 @@ const crossOrigin = (req, res, next) => {
   const origin = req.get('origin')
   const allowedOrigins = [process.env.FRONTEND_HOST, process.env.EXPRESS_HOST]
   if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Origin', origin)
     res.header(
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept',
