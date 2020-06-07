@@ -2,10 +2,11 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 require('dotenv').config()
 
-const { crossOrigin } = require('./middleware')
 const callback = require('./routes/callback')
 const login = require('./routes/login')
 const recommendations = require('./routes/recommendations')
+const tracks = require('./routes/tracks')
+const { crossOrigin } = require('./middleware')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -15,5 +16,6 @@ app.use(crossOrigin)
 app.use(login)
 app.use(callback)
 app.use(recommendations)
+app.use(tracks)
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}!`))
