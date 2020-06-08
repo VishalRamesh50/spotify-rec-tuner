@@ -1,7 +1,8 @@
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
+import PauseIcon from '@material-ui/icons/Pause'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -72,9 +73,24 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const SongResult = ({ id, albumUrl, songName, artistName }) => {
+const SongResult = ({
+  id,
+  uri,
+  albumUrl,
+  songName,
+  artistName,
+  recentlyPlayed,
+  setRecentlyPlayed,
+}) => {
   const classes = useStyles()
-  const [liked, setLiked] = React.useState(false)
+  const [liked, setLiked] = useState(false)
+  const [playing, setPlaying] = useState(false)
+
+  useEffect(() => {
+    if (playing && recentlyPlayed !== id) {
+      setPlaying(false)
+    }
+  }, [recentlyPlayed])
 
   const toggleLike = () => {
     const newLikedState = !liked
@@ -109,6 +125,53 @@ const SongResult = ({ id, albumUrl, songName, artistName }) => {
     setLiked(newLikedState)
   }
 
+  const togglePlay = () => {
+    const newPlayState = !playing
+    const cookies = document.cookie.split(';')
+    const access_token = cookies[0].split('=')[1]
+    const refresh_token = cookies[1].split('=')[1]
+    const params = { access_token, refresh_token }
+    if (newPlayState) {
+      axios
+        .put(
+          `${process.env.REACT_APP_HOST}/player/play`,
+          {
+            uris: [uri],
+          },
+          {
+            params,
+          },
+        )
+        .then(() => {
+          setRecentlyPlayed(id)
+        })
+        .catch(err => {
+          if (err.response.status === 403) {
+            console.log('User needs premium')
+          } else if (err.response.status === 404) {
+            console.log('An active device was not found.')
+          } else {
+            console.error('Some error playing track')
+          }
+        })
+    } else {
+      axios
+        .put(`${process.env.REACT_APP_HOST}/player/pause`, null, {
+          params,
+        })
+        .catch(err => {
+          if (err.response.status === 403) {
+            console.log('User needs premium')
+          } else if (err.response.status === 404) {
+            console.log('An active device was not found.')
+          } else {
+            console.error('Some error pausing track')
+          }
+        })
+    }
+    setPlaying(!playing)
+  }
+
   return (
     <div className={classes.songResult}>
       <div className={classes.albumCover}>
@@ -126,7 +189,19 @@ const SongResult = ({ id, albumUrl, songName, artistName }) => {
             )}
           </div>
           <div className={classes.playArrow}>
-            <PlayArrowIcon className={classes.icon} fontSize="inherit" />
+            {playing && recentlyPlayed === id ? (
+              <PauseIcon
+                className={classes.icon}
+                onClick={togglePlay}
+                fontSize="inherit"
+              />
+            ) : (
+              <PlayArrowIcon
+                className={classes.icon}
+                onClick={togglePlay}
+                fontSize="inherit"
+              />
+            )}
           </div>
           <div className={classes.artistName}>{`- ${artistName}`}</div>
         </div>

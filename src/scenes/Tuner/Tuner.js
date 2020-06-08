@@ -94,6 +94,7 @@ const Tuner = () => {
   const [selectedSeedGenres, setSelectedSeedGenres] = React.useState([])
   const [submitted, setSubmitted] = React.useState(false)
   const [formError, setFormError] = React.useState(false)
+  const [recentlyPlayed, setRecentlyPlayed] = React.useState(null)
 
   const getRecommendations = () => {
     if (selectedSeedGenres.length === 0) {
@@ -192,9 +193,12 @@ const Tuner = () => {
                 <SongResult
                   key={track.id}
                   id={track.id}
+                  uri={track.uri}
                   songName={track.name}
                   artistName={track.artists[0].name}
                   albumUrl={track.album.images[1].url}
+                  recentlyPlayed={recentlyPlayed}
+                  setRecentlyPlayed={setRecentlyPlayed}
                 ></SongResult>
               ))}
             </div>
