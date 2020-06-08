@@ -4,7 +4,8 @@ const router = express.Router()
 
 router.get('/login', (req, res) => {
   const showDialog = req.query.show_dialog || false
-  let scopes = 'user-modify-playback-state,user-library-modify'
+  let scopes =
+    'user-library-modify,user-read-currently-playing,user-modify-playback-state'
   res.redirect(
     'https://accounts.spotify.com/authorize' +
       '?response_type=code' +
