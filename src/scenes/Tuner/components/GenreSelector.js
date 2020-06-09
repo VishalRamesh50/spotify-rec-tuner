@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function CheckboxesTags({ setSelectedSeedGenres, error }) {
+const GenreSelector = ({ setSelectedSeedGenres }) => {
   const classes = useStyles()
   const onChange = (event, selectedItems) => {
     setSelectedSeedGenres(selectedItems)
@@ -76,3 +76,5 @@ export default function CheckboxesTags({ setSelectedSeedGenres, error }) {
 }
 
 const genres = ['anime', 'edm', 'jazz', 'k-pop', 'piano', 'pop', 'work-out']
+
+export default GenreSelector
