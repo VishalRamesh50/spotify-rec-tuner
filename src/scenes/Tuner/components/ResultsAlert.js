@@ -21,22 +21,19 @@ const useStyles = makeStyles(theme => ({
 
 const ResultsAlert = ({ numResults }) => {
   const classes = useStyles()
-  if (numResults !== -1) {
-    return (
-      <ThemeProvider theme={darkTheme}>
-        <div className={classes.root}>
-          {numResults > 0 ? (
-            <Alert severity="success">Found {numResults} results!</Alert>
-          ) : (
-            <Alert severity="info">
-              Couldn't find any results for your search. Try different ranges!
-            </Alert>
-          )}
-        </div>
-      </ThemeProvider>
-    )
-  }
-  return null
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <div className={classes.root}>
+        {numResults > 0 ? (
+          <Alert severity="success">Found {numResults} results!</Alert>
+        ) : (
+          <Alert severity="info">
+            Couldn't find any results for your search. Try different ranges!
+          </Alert>
+        )}
+      </div>
+    </ThemeProvider>
+  )
 }
 
 export default ResultsAlert
