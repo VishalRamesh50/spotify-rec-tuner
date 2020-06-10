@@ -122,7 +122,6 @@ const Tuner = () => {
       setSubmitted(false)
       return
     }
-    setFormErrors([])
     let attributes = {}
     const sliderTitleElements = document.getElementsByClassName(
       'MuiTypography-root',
@@ -169,6 +168,7 @@ const Tuner = () => {
       .then(res => {
         setRecommendations(res.data.tracks)
         setSubmitted(true)
+        setFormErrors([])
       })
       .catch(err => {
         window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
