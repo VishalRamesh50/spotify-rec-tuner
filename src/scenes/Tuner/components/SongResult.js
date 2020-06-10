@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import PauseIcon from '@material-ui/icons/Pause'
@@ -81,22 +82,25 @@ const SongResult = ({
   artistName,
   recentlyPlayed,
   setRecentlyPlayed,
+  errors,
+  setErrors,
 }) => {
   const classes = useStyles()
   const [liked, setLiked] = useState(false)
   const [playing, setPlaying] = useState(false)
 
   useEffect(() => {
-    if (playing && recentlyPlayed !== id) {
+    if (recentlyPlayed !== id) {
       setPlaying(false)
     }
-  }, [recentlyPlayed])
+  }, [recentlyPlayed, id])
 
   const toggleLike = () => {
     const newLikedState = !liked
     const cookies = document.cookie.split(';')
     const access_token = cookies[0].split('=')[1]
     const refresh_token = cookies[1].split('=')[1]
+    let errorsCopy = [...errors]
     if (newLikedState) {
       axios
         .put(`${process.env.REACT_APP_HOST}/tracks`, null, {
@@ -106,8 +110,16 @@ const SongResult = ({
             id: id,
           },
         })
+        .then(() => {
+          setLiked(newLikedState)
+        })
         .catch(() => {
-          console.error('Some error liking track')
+          errorsCopy.push({
+            id: uuidv4(),
+            severity: 'error',
+            text: 'There was some error adding track to library',
+          })
+          setErrors(errorsCopy)
         })
     } else {
       axios
@@ -118,11 +130,18 @@ const SongResult = ({
             id: id,
           },
         })
+        .then(() => {
+          setLiked(newLikedState)
+        })
         .catch(() => {
-          console.error('Some error unliking track')
+          errorsCopy.push({
+            id: uuidv4(),
+            severity: 'error',
+            text: 'There was some error removing track from library',
+          })
+          setErrors(errorsCopy)
         })
     }
-    setLiked(newLikedState)
   }
 
   const togglePlay = () => {
@@ -131,6 +150,7 @@ const SongResult = ({
     const access_token = cookies[0].split('=')[1]
     const refresh_token = cookies[1].split('=')[1]
     const params = { access_token, refresh_token }
+    let errorsCopy = [...errors]
     if (newPlayState) {
       axios
         .put(
@@ -144,32 +164,73 @@ const SongResult = ({
         )
         .then(() => {
           setRecentlyPlayed(id)
+          setPlaying(!playing)
         })
         .catch(err => {
-          if (err.response.status === 403) {
-            console.log('User needs premium')
-          } else if (err.response.status === 404) {
-            console.log('An active device was not found.')
-          } else {
-            console.error('Some error playing track')
+          const response = err.response
+          if (response) {
+            if (response.status === 403) {
+              errorsCopy.push({
+                id: uuidv4(),
+                severity: 'info',
+                text: 'You need a Spotify premium account to play music.',
+              })
+              setErrors(errorsCopy)
+              return
+            } else if (response.status === 404) {
+              errorsCopy.push({
+                id: uuidv4(),
+                severity: 'error',
+                text: 'An active device was not found.',
+              })
+              setErrors(errorsCopy)
+              return
+            }
           }
+          errorsCopy.push({
+            id: uuidv4(),
+            severity: 'error',
+            text: 'Some error playing track.',
+          })
+          setErrors(errorsCopy)
         })
     } else {
       axios
         .put(`${process.env.REACT_APP_HOST}/player/pause`, null, {
           params,
         })
+        .then(() => {
+          setPlaying(!playing)
+        })
         .catch(err => {
-          if (err.response.status === 403) {
-            console.log('User needs premium')
-          } else if (err.response.status === 404) {
-            console.log('An active device was not found.')
-          } else {
-            console.error('Some error pausing track')
+          const response = err.response
+          if (response) {
+            if (response.status === 403) {
+              errorsCopy.push({
+                id: uuidv4(),
+                severity: 'info',
+                text: 'You need a Spotify premium account to play music.',
+              })
+              setErrors(errorsCopy)
+              return
+            } else if (response.status === 404) {
+              errorsCopy.push({
+                id: uuidv4(),
+                severity: 'error',
+                text: 'An active device was not found.',
+              })
+              setErrors(errorsCopy)
+              return
+            }
           }
+          errorsCopy.push({
+            id: uuidv4(),
+            severity: 'error',
+            text: 'Some error pausing track.',
+          })
+          setErrors(errorsCopy)
         })
     }
-    setPlaying(!playing)
   }
 
   return (
