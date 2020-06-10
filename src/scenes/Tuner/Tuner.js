@@ -1,10 +1,11 @@
 import Button from '@material-ui/core/Button'
 import HomeIcon from '@material-ui/icons/Home'
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
+import { v4 as uuidv4 } from 'uuid'
 
-import ErrorAlert from './components/ErrorAlert'
+import Alert from './components/Alert'
 import GenreSelector from './components/GenreSelector'
 import ResultsAlert from './components/ResultsAlert'
 import Slider from './components/Slider'
@@ -90,20 +91,38 @@ const Tuner = () => {
     window.location.href = `${process.env.REACT_APP_HOST}/login`
   }
 
-  const [recommendations, setRecommendations] = React.useState([])
-  const [selectedSeedGenres, setSelectedSeedGenres] = React.useState([])
-  const [submitted, setSubmitted] = React.useState(false)
-  const [formError, setFormError] = React.useState(false)
-  const [recentlyPlayed, setRecentlyPlayed] = React.useState(null)
+  const [recommendations, setRecommendations] = useState([])
+  const [selectedSeedGenres, setSelectedSeedGenres] = useState([])
+  const [submitted, setSubmitted] = useState(false)
+  const [formErrors, setFormErrors] = useState([])
+  const [recentlyPlayed, setRecentlyPlayed] = useState(null)
+  const [interactionErrors, setInteractionErrors] = useState([])
+
+  const addFormError = errorData => {
+    let formErrorsCopy = [...formErrors]
+    if (
+      !formErrorsCopy.some(
+        e => e.severity === errorData.severity && e.text === errorData.text,
+      )
+    ) {
+      formErrorsCopy.push(errorData)
+      setFormErrors(formErrorsCopy)
+    }
+  }
 
   const getRecommendations = () => {
     if (selectedSeedGenres.length === 0) {
-      setFormError(true)
       setRecommendations([])
+      const errorData = {
+        id: uuidv4(),
+        severity: 'error',
+        text: 'A seed genre must be selected!',
+      }
+      addFormError(errorData)
       setSubmitted(false)
       return
     }
-    setFormError(false)
+    setFormErrors([])
     let attributes = {}
     const sliderTitleElements = document.getElementsByClassName(
       'MuiTypography-root',
@@ -154,10 +173,7 @@ const Tuner = () => {
         <a href="/">
           <HomeIcon className={classes.homeIcon} fontSize="inherit"></HomeIcon>
         </a>
-        <GenreSelector
-          setSelectedSeedGenres={setSelectedSeedGenres}
-          error={formError}
-        />
+        <GenreSelector setSelectedSeedGenres={setSelectedSeedGenres} />
         <Slider name="Acousticness" min={0} max={1} step={0.01}></Slider>
         <Slider name="Danceability" min={0} max={1} step={0.01}></Slider>
         <Slider name="Energy" min={0} max={1} step={0.01}></Slider>
@@ -181,13 +197,32 @@ const Tuner = () => {
         <header>
           <h1>Recommendations</h1>
         </header>
-        {formError ? (
-          <ErrorAlert open={formError} setOpen={setFormError} />
+        {formErrors.length > 0 ? (
+          formErrors.map(error => (
+            <Alert
+              key={error.text}
+              id={error.id}
+              severity={error.severity}
+              text={error.text}
+              errors={formErrors}
+              setErrors={setFormErrors}
+            />
+          ))
         ) : (
           <>
             {submitted ? (
               <ResultsAlert numResults={recommendations.length} />
             ) : null}
+            {interactionErrors.map(error => (
+              <Alert
+                key={error.id}
+                id={error.id}
+                text={error.text}
+                severity={error.severity}
+                errors={interactionErrors}
+                setErrors={setInteractionErrors}
+              />
+            ))}
             <div className={classes.songResults}>
               {recommendations.map(track => (
                 <SongResult
@@ -199,6 +234,8 @@ const Tuner = () => {
                   albumUrl={track.album.images[1].url}
                   recentlyPlayed={recentlyPlayed}
                   setRecentlyPlayed={setRecentlyPlayed}
+                  errors={interactionErrors}
+                  setErrors={setInteractionErrors}
                 ></SongResult>
               ))}
             </div>
