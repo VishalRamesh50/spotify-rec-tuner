@@ -23,7 +23,7 @@ router.get('/recommendations', async (req, res) => {
       res.send(response.data)
     })
     .catch(err => {
-      res.status(err.response.status).send()
+      res.status(err.response.status).send(err.response.data)
     })
 })
 
