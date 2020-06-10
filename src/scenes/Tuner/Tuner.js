@@ -139,10 +139,20 @@ const Tuner = () => {
         attributes[`max_${title}`] = max_value
       }
     }
+    if (selectedSeedGenres.length > 5) {
+      const errorData = {
+        id: uuidv4(),
+        severity: 'error',
+        text: 'Only 5 seed genres can be selected at once!',
+      }
+      addFormError(errorData)
+      return
+    }
     let seedGenres = ''
     for (let genre of selectedSeedGenres) {
       seedGenres += `,${genre}`
     }
+    seedGenres = seedGenres.substring(1)
     const cookies = document.cookie.split(';')
     const access_token = cookies[0].split('=')[1]
     const refresh_token = cookies[1].split('=')[1]
