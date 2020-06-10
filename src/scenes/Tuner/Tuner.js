@@ -219,7 +219,7 @@ const Tuner = () => {
         {formErrors.length > 0 ? (
           formErrors.map(error => (
             <Alert
-              key={error.text}
+              key={error.id}
               id={error.id}
               severity={error.severity}
               text={error.text}
