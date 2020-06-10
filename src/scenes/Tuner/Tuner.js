@@ -221,6 +221,7 @@ const Tuner = () => {
                 severity={error.severity}
                 errors={interactionErrors}
                 setErrors={setInteractionErrors}
+                autoClose={true}
               />
             ))}
             <div className={classes.songResults}>

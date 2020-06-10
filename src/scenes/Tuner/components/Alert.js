@@ -21,12 +21,25 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const TransitionAlerts = ({ id, text, severity, errors, setErrors }) => {
-  useEffect(() => {
-    setOpen(true)
-  }, [errors])
-
+const TransitionAlerts = ({
+  id,
+  text,
+  severity,
+  errors,
+  setErrors,
+  autoClose = false,
+  autoCloseTime = 3000,
+}) => {
   const [open, setOpen] = useState(true)
+
+  useEffect(() => {
+    if (autoClose) {
+      const timer = setTimeout(() => {
+        setOpen(false)
+      }, autoCloseTime)
+      return () => clearTimeout(timer)
+    }
+  }, [autoClose, autoCloseTime])
 
   const onExited = () => {
     let errorsCopy = [...errors]
