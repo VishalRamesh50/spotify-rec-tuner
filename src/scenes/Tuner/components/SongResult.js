@@ -104,6 +104,7 @@ const SongResult = ({
     if (newLikedState) {
       axios
         .put(`${process.env.REACT_APP_HOST}/tracks`, null, {
+          withCredentials: true,
           params: {
             access_token: access_token,
             refresh_token: refresh_token,
@@ -124,6 +125,7 @@ const SongResult = ({
     } else {
       axios
         .delete(`${process.env.REACT_APP_HOST}/tracks`, {
+          withCredentials: true,
           params: {
             access_token: access_token,
             refresh_token: refresh_token,
@@ -159,6 +161,7 @@ const SongResult = ({
             uris: [uri],
           },
           {
+            withCredentials: true,
             params,
           },
         )
@@ -197,6 +200,7 @@ const SongResult = ({
     } else {
       axios
         .put(`${process.env.REACT_APP_HOST}/player/pause`, null, {
+          withCredentials: true,
           params,
         })
         .then(() => {
