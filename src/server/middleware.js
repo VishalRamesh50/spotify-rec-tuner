@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const updateToken = (req, res, next) => {
-  const refreshToken = req.query.refresh_token
+  const refreshToken = req.cookies.REFRESH_TOKEN
 
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -20,10 +20,9 @@ const updateToken = (req, res, next) => {
 
   return axios(authOptions)
     .then(response => {
-      const { access_token, refresh_token } = response.data
+      const { access_token } = response.data
       res.locals.access_token = access_token
       res.cookie('ACCESS_TOKEN', access_token, { overwrite: true })
-      res.cookie('REFRESH_TOKEN', refresh_token, { overwrite: true })
       next()
     })
     .catch(err => {
