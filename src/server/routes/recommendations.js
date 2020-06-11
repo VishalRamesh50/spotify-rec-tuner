@@ -6,17 +6,14 @@ const { updateToken } = require('../middleware')
 const router = express.Router()
 router.use(updateToken)
 
-router.get('/recommendations', async (req, res) => {
-  const access_token = res.locals.access_token
-  const params = { ...req.query }
-  delete params['access_token']
-  delete params['refresh_token']
+router.get('/recommendations', (req, res) => {
+  const accessToken = res.locals.access_token
 
   return axios
     .get('https://api.spotify.com/v1/recommendations', {
-      params: params,
+      params: req.query,
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
     .then(response => {
