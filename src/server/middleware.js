@@ -1,20 +1,5 @@
 const axios = require('axios')
 
-const crossOrigin = (req, res, next) => {
-  const origin = req.get('origin')
-  const allowedOrigins = [process.env.FRONTEND_HOST, process.env.EXPRESS_HOST]
-  if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin)
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept',
-    )
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    res.header('Access-Control-Allow-Credentials', 'true')
-  }
-  next()
-}
-
 const updateToken = (req, res, next) => {
   const refreshToken = req.query.refresh_token
 
@@ -46,4 +31,4 @@ const updateToken = (req, res, next) => {
     })
 }
 
-module.exports = { updateToken, crossOrigin }
+module.exports = { updateToken }
