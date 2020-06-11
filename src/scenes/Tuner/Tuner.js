@@ -152,15 +152,10 @@ const Tuner = () => {
       seedGenres += `,${genre}`
     }
     seedGenres = seedGenres.substring(1)
-    const cookies = document.cookie.split(';')
-    const access_token = cookies[0].split('=')[1]
-    const refresh_token = cookies[1].split('=')[1]
     axios
       .get(`${process.env.REACT_APP_HOST}/recommendations`, {
         withCredentials: true,
         params: {
-          access_token: access_token,
-          refresh_token: refresh_token,
           market: 'US',
           seed_genres: seedGenres,
           ...attributes,

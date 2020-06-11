@@ -97,17 +97,12 @@ const SongResult = ({
 
   const toggleLike = () => {
     const newLikedState = !liked
-    const cookies = document.cookie.split(';')
-    const access_token = cookies[0].split('=')[1]
-    const refresh_token = cookies[1].split('=')[1]
     let errorsCopy = [...errors]
     if (newLikedState) {
       axios
         .put(`${process.env.REACT_APP_HOST}/tracks`, null, {
           withCredentials: true,
           params: {
-            access_token: access_token,
-            refresh_token: refresh_token,
             id: id,
           },
         })
@@ -127,8 +122,6 @@ const SongResult = ({
         .delete(`${process.env.REACT_APP_HOST}/tracks`, {
           withCredentials: true,
           params: {
-            access_token: access_token,
-            refresh_token: refresh_token,
             id: id,
           },
         })
@@ -148,10 +141,6 @@ const SongResult = ({
 
   const togglePlay = () => {
     const newPlayState = !playing
-    const cookies = document.cookie.split(';')
-    const access_token = cookies[0].split('=')[1]
-    const refresh_token = cookies[1].split('=')[1]
-    const params = { access_token, refresh_token }
     let errorsCopy = [...errors]
     if (newPlayState) {
       axios
@@ -162,7 +151,6 @@ const SongResult = ({
           },
           {
             withCredentials: true,
-            params,
           },
         )
         .then(() => {
@@ -201,7 +189,6 @@ const SongResult = ({
       axios
         .put(`${process.env.REACT_APP_HOST}/player/pause`, null, {
           withCredentials: true,
-          params,
         })
         .then(() => {
           setPlaying(!playing)
