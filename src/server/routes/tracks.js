@@ -7,14 +7,14 @@ const router = express.Router()
 router.use(updateToken)
 
 router.put('/tracks', (req, res) => {
-  const access_token = res.locals.access_token
+  const accessToken = res.locals.access_token
   const { id } = req.query
 
   return axios
     .put('https://api.spotify.com/v1/me/tracks', null, {
       params: { ids: id },
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
     .then(() => {
@@ -26,14 +26,14 @@ router.put('/tracks', (req, res) => {
 })
 
 router.delete('/tracks', (req, res) => {
-  const access_token = res.locals.access_token
+  const accessToken = res.locals.access_token
   const { id } = req.query
 
   return axios
     .delete('https://api.spotify.com/v1/me/tracks', {
       params: { ids: id },
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
     .then(() => {
