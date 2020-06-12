@@ -1,6 +1,5 @@
 const axios = require('axios')
 const express = require('express')
-const setAccessToken = require('../middleware')
 
 const router = express.Router()
 
@@ -24,7 +23,5 @@ router.get('/recommendations', (req, res, next) => {
       res.status(err.response.status).send(err.response.data)
     })
 })
-
-router.use(setAccessToken)
 
 module.exports = router
