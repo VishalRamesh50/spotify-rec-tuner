@@ -1,43 +1,46 @@
 const axios = require('axios')
 const express = require('express')
 
-const { updateToken } = require('../middleware')
-
 const router = express.Router()
-router.use(updateToken)
 
-router.put('/tracks', (req, res) => {
-  const accessToken = res.locals.access_token
-  const { id } = req.query
+router.put('/tracks', (req, res, next) => {
+  const accessToken = req.cookies.ACCESS_TOKEN
+  const refreshToken = req.cookies.REFRESH_TOKEN
 
   return axios
     .put('https://api.spotify.com/v1/me/tracks', null, {
-      params: { ids: id },
+      params: { ids: req.query.id },
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        Cookie: `REFRESH_TOKEN=${refreshToken}`,
       },
     })
-    .then(() => {
-      res.send('OK')
+    .then(response => {
+      response.data = 'OK'
+      res.locals.response = response
+      next()
     })
     .catch(err => {
       res.status(err.response.status).send()
     })
 })
 
-router.delete('/tracks', (req, res) => {
-  const accessToken = res.locals.access_token
-  const { id } = req.query
+router.delete('/tracks', (req, res, next) => {
+  const accessToken = req.cookies.ACCESS_TOKEN
+  const refreshToken = req.cookies.REFRESH_TOKEN
 
   return axios
     .delete('https://api.spotify.com/v1/me/tracks', {
-      params: { ids: id },
+      params: { ids: req.query.id },
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        Cookie: `REFRESH_TOKEN=${refreshToken}`,
       },
     })
-    .then(() => {
-      res.send('SUCCESS')
+    .then(response => {
+      response.data = 'SUCCESS'
+      res.locals.response = response
+      next()
     })
     .catch(err => {
       res.status(err.response.status).send()

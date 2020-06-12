@@ -1,16 +1,16 @@
 const axios = require('axios')
 const express = require('express')
 
-const { updateToken } = require('../middleware')
-
 const router = express.Router()
-router.use(updateToken)
 
-router.put('/player/play', (req, res) => {
-  const access_token = res.locals.access_token
+router.put('/player/play', (req, res, next) => {
+  const accessToken = req.cookies.ACCESS_TOKEN
+  const refreshToken = req.cookies.REFRESH_TOKEN
+
   const uri = req.body.uris[0]
   const headers = {
-    Authorization: `Bearer ${access_token}`,
+    Authorization: `Bearer ${accessToken}`,
+    Cookie: `REFRESH_TOKEN=${refreshToken}`,
   }
 
   return axios
@@ -43,8 +43,8 @@ router.put('/player/play', (req, res) => {
           },
         )
         .then(r => {
-          console.log('Play success')
-          res.status(r.status).send(r.data)
+          res.locals.response = r
+          next()
         })
         .catch(err => {
           res.status(err.response.status).send()
@@ -55,18 +55,20 @@ router.put('/player/play', (req, res) => {
     })
 })
 
-router.put('/player/pause', (req, res) => {
-  const access_token = res.locals.access_token
+router.put('/player/pause', (req, res, next) => {
+  const accessToken = req.cookies.ACCESS_TOKEN
+  const refreshToken = req.cookies.REFRESH_TOKEN
 
   return axios
     .put('https://api.spotify.com/v1/me/player/pause', null, {
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${accessToken}`,
+        Cookie: `REFRESH_TOKEN=${refreshToken}`,
       },
     })
     .then(r => {
-      console.log('Pause successful')
-      res.status(r.status).send(r.data)
+      res.locals.response = r
+      next()
     })
     .catch(err => {
       const statusCode = err.response.status
