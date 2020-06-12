@@ -38,7 +38,7 @@ axios.interceptors.response.use(null, error => {
   return Promise.reject(error)
 })
 
-const setAccessToken = (req, res, next) => {
+const setAccessToken = (req, res) => {
   const { response } = res.locals
   let access_token = response.request
     .getHeader('Authorization')
@@ -46,7 +46,7 @@ const setAccessToken = (req, res, next) => {
   if (req.cookies.ACCESS_TOKEN !== access_token) {
     res.cookie('ACCESS_TOKEN', access_token, { overwrite: true })
   }
-  res.send(response.data)
+  res.status(response.status).send(response.data)
 }
 
 module.exports = setAccessToken
