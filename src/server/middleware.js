@@ -1,8 +1,12 @@
 const axios = require('axios')
 
 axios.interceptors.response.use(null, error => {
-  console.log('in error interceptor')
-  if (error.response && error.response.status === 401) {
+  if (
+    !error.config.visited &&
+    error.response &&
+    error.response.status === 401
+  ) {
+    error.config.visited = true
     const refreshToken = error.config.headers.Cookie.split('=')[1]
 
     const authOptions = {
