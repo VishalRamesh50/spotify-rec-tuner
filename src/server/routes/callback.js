@@ -33,8 +33,6 @@ router.get('/callback', (req, res) => {
       res.redirect(`${process.env.FRONTEND_HOST}/tuner`)
     })
     .catch(err => {
-      console.error('There was an error in authentication. Try again.')
-      console.error(err)
       res.redirect(`${process.env.FRONTEND_HOST}`)
     })
 })
