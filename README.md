@@ -57,7 +57,7 @@ cp .env.example .env
    - Go to https://developer.spotify.com/dashboard/ and login.
    - Create an app.
    - Copy and paste the `Client ID` and replace `YOUR_SPOTIFY_APP_CLIENT_ID` with it.
-   - Click "Show Client Secret" to reveal the Client Secret and replace `YOUR_CLIENT_SECRET` with that value.
+   - Click "Show Client Secret" to reveal the Client Secret and replace `YOUR_SPOTIFY_APP_CLIENT_SECRET` with that value.
 
 4. Get the `REDIRECT_URI`
 
