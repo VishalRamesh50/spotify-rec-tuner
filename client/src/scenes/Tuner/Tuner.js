@@ -87,10 +87,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Tuner = () => {
-  if (document.cookie === '') {
-    window.location.href = `${process.env.REACT_APP_HOST}/login`
-  }
-
   const [recommendations, setRecommendations] = useState([])
   const [selectedSeedGenres, setSelectedSeedGenres] = useState([])
   const [submitted, setSubmitted] = useState(false)
