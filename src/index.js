@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Route, BrowserRouter } from 'react-router-dom'
@@ -21,6 +22,15 @@ export const theme = createMuiTheme({
       xl: 1920,
     },
   },
+})
+
+axios.interceptors.response.use(null, error => {
+  if (error.response && error.response.status === 401) {
+    window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
+    return new Promise(() => {})
+  }
+
+  return Promise.reject(error)
 })
 
 ReactDOM.render(
