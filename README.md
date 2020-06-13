@@ -1,68 +1,85 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Spotify Recommendation Tuner
 
-## Available Scripts
+A simple site to visually interact with the recommendations Spotify provides and
+change certain attributes to see how it affects the recommendations for your
+account. From there you can play/pause and add/remove songs to/from your
+library.
 
-In the project directory, you can run:
+# Getting Started
 
-### `npm start`
+## Frontend React Web Application
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Enter the client directory which houses the code for the frontend React app
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```sh
+cd client
+```
 
-### `npm test`
+2. Copy the `.example.env` file as your `.env` file
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+cp .env.example .env
+```
 
-### `npm run build`
+3. Replace the `REACT_APP_HOST` with the host which the express server will run
+   on. Most likely `http://localhost:3001`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Install dependencies
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```sh
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5. Start the application!
 
-### `npm run eject`
+```sh
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The site will automatically open on your default browser and start running at `localhost:3000`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Backend Node Server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Enter the server directory which houses the code for the backend express app
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+cd server
+```
 
-## Learn More
+2. Copy the `.example.env` file as your `.env` file
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+cp .env.example .env
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Get the `CLIENT_ID` and `CLIENT_SECRET` for your Spotify Application.
 
-### Code Splitting
+   - Go to https://developer.spotify.com/dashboard/ and login.
+   - Create an app.
+   - Copy and paste the `Client ID` and replace `YOUR_SPOTIFY_APP_CLIENT_ID` with it.
+   - Click "Show Client Secret" to reveal the Client Secret and replace `YOUR_CLIENT_SECRET` with that value.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+4. Get the `REDIRECT_URI`
 
-### Analyzing the Bundle Size
+    - Give the `REDIRECT_URI` the value of the domain the express app will run on + "/callback". So if the express app lives at `localhost:3001` the `REDIRECT_URI` would be `http://localhost:3001/callback`
+    - In the Spotify Dashboard click "Edit Settings"
+    - Enter your Redirect URI in the Redirect URIs input box and click "ADD"
+    - Scroll down and click Save
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+5. Replace the value of the `FRONTEND_HOST` with the location at which the frontend app runs from. Most likely `http://localhost:3000`.
 
-### Making a Progressive Web App
+6. Install dependencies
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```sh
+npm install
+```
 
-### Advanced Configuration
+5. Start the application!
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+```sh
+npm serve
+```
 
-### Deployment
+It will be running at `localhost:3001`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+_Note: `localhost` can be replaced with your IP address in both the frontend and backend and they should still work if you want to try running it from your phone as well. Make sure you update all references to it._
