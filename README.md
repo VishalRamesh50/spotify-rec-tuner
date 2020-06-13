@@ -15,7 +15,7 @@ library.
 cd client
 ```
 
-2. Copy the `.example.env` file as your `.env` file
+2. Copy the `.env.example` file as your `.env` file
 
 ```sh
 cp .env.example .env
@@ -46,7 +46,7 @@ The site will automatically open on your default browser and start running at `l
 cd server
 ```
 
-2. Copy the `.example.env` file as your `.env` file
+2. Copy the `.env.example` file as your `.env` file
 
 ```sh
 cp .env.example .env
