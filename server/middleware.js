@@ -44,7 +44,10 @@ const setAccessToken = (req, res) => {
     .getHeader('Authorization')
     .replace('Bearer ', '')
   if (req.cookies.ACCESS_TOKEN !== access_token) {
-    res.cookie('ACCESS_TOKEN', access_token, { overwrite: true })
+    res.cookie('ACCESS_TOKEN', access_token, {
+      overwrite: true,
+      httpOnly: process.env.NODE_ENV === 'production',
+    })
   }
   res.status(response.status).send(response.data)
 }
