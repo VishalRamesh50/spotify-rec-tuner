@@ -167,16 +167,12 @@ const Tuner = () => {
         setFormErrors([])
       })
       .catch(err => {
-        if (err.response.status === 401) {
-          window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
-        } else {
-          const errorData = {
-            id: uuidv4(),
-            severity: 'error',
-            text: 'Some error getting recommendation data',
-          }
-          addFormError(errorData)
+        const errorData = {
+          id: uuidv4(),
+          severity: 'error',
+          text: 'Some error getting recommendation data',
         }
+        addFormError(errorData)
       })
   }
 

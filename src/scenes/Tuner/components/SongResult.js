@@ -110,16 +110,12 @@ const SongResult = ({
           setLiked(newLikedState)
         })
         .catch(err => {
-          if (err.response.status === 401) {
-            window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
-          } else {
-            errorsCopy.push({
-              id: uuidv4(),
-              severity: 'error',
-              text: 'There was some error adding track to library',
-            })
-            setErrors(errorsCopy)
-          }
+          errorsCopy.push({
+            id: uuidv4(),
+            severity: 'error',
+            text: 'There was some error adding track to library',
+          })
+          setErrors(errorsCopy)
         })
     } else {
       axios
@@ -133,16 +129,12 @@ const SongResult = ({
           setLiked(newLikedState)
         })
         .catch(err => {
-          if (err.response.status === 401) {
-            window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
-          } else {
-            errorsCopy.push({
-              id: uuidv4(),
-              severity: 'error',
-              text: 'There was some error removing track from library',
-            })
-            setErrors(errorsCopy)
-          }
+          errorsCopy.push({
+            id: uuidv4(),
+            severity: 'error',
+            text: 'There was some error removing track from library',
+          })
+          setErrors(errorsCopy)
         })
     }
   }
@@ -184,9 +176,6 @@ const SongResult = ({
               })
               setErrors(errorsCopy)
               return
-            } else if (response.status === 401) {
-              window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
-              return
             }
           }
           errorsCopy.push({
@@ -222,9 +211,6 @@ const SongResult = ({
                 text: 'An active device was not found.',
               })
               setErrors(errorsCopy)
-              return
-            } else if (response.status === 401) {
-              window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
               return
             }
           }
