@@ -26,10 +26,12 @@ router.get('/callback', (req, res) => {
       res.cookie('ACCESS_TOKEN', response.data.access_token, {
         overwrite: true,
         httpOnly: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production',
       })
       res.cookie('REFRESH_TOKEN', response.data.refresh_token, {
         overwrite: true,
         httpOnly: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production',
       })
 
       res.redirect(`${process.env.FRONTEND_HOST}/tuner`)

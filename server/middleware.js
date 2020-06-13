@@ -47,6 +47,7 @@ const setAccessToken = (req, res) => {
     res.cookie('ACCESS_TOKEN', access_token, {
       overwrite: true,
       httpOnly: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production',
     })
   }
   res.status(response.status).send(response.data)
