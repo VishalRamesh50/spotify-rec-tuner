@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './spotify-login.css'
-import { serverHost } from 'index'
+import { serverHost } from '../../../../index'
 
 const SpotifyLogin = () => {
   return (
