@@ -21,6 +21,9 @@ router.get('/callback', (req, res) => {
     json: true,
   }
 
+  const frontendHost =
+    process.env.NODE_ENV === 'production' ? '' : process.env.FRONTEND_HOST
+
   axios(authOptions)
     .then(response => {
       res.cookie('ACCESS_TOKEN', response.data.access_token, {
@@ -34,10 +37,10 @@ router.get('/callback', (req, res) => {
         secure: process.env.NODE_ENV === 'production',
       })
 
-      res.redirect(`${process.env.FRONTEND_HOST || ''}/tuner`)
+      res.redirect(`${frontendHost}/tuner`)
     })
     .catch(err => {
-      res.redirect(`${process.env.FRONTEND_HOST || ''}`)
+      res.redirect(`${frontendHost}`)
     })
 })
 
