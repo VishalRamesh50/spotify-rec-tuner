@@ -14,8 +14,8 @@ const tracks = require('./routes/tracks')
 
 const app = express()
 const PORT = process.env.PORT || 3001
-app.use(express.static(path.join(__dirname, '../client/build')))
-app.use(cors({ credentials: true, origin: process.env.FRONTEND_HOST }))
+app.use(express.static(path.join(__dirname, '../build')))
+app.use(cors({ credentials: true, origin: null }))
 app.use(cookieParser())
 app.use(bodyParser.json())
 
@@ -29,8 +29,8 @@ router.use(recommendations)
 router.use(tracks)
 router.use(setAccessToken)
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'))
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'))
 })
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}!`))
