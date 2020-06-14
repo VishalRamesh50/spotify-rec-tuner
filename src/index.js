@@ -10,7 +10,6 @@ import Tuner from './scenes/Tuner/Tuner'
 
 export const serverHost = process.env.REACT_APP_HOST || window.location.origin
 
-axios.defaults.proxy.host = process.env.REACT_APP_HOST
 axios.interceptors.response.use(null, error => {
   if (error.response && error.response.status === 401) {
     window.location.href = `${serverHost}/api/login?show_dialog=true`
