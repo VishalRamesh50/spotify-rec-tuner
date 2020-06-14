@@ -34,10 +34,10 @@ router.get('/callback', (req, res) => {
         secure: process.env.NODE_ENV === 'production',
       })
 
-      res.redirect(`${process.env.FRONTEND_HOST}/tuner`)
+      res.redirect(`${process.env.FRONTEND_HOST || ''}/tuner`)
     })
     .catch(err => {
-      res.redirect(`${process.env.FRONTEND_HOST}`)
+      res.redirect(`${process.env.FRONTEND_HOST || ''}`)
     })
 })
 
