@@ -7,50 +7,16 @@ library.
 
 # Getting Started
 
-## Frontend React Web Application
+## Setup Environment
 
-1. Enter the client directory which houses the code for the frontend React app
-
-```sh
-cd client
-```
-
-2. Copy the `.env.example` file as your `.env` file
+1. Copy the `.env.example` file as your `.env` file
 
 ```sh
 cp .env.example .env
 ```
 
-3. Replace the `REACT_APP_HOST` with the host which the express server will run
+2. Replace the `REACT_APP_HOST` with the host which the express server will run
    on. Most likely `http://localhost:3001`
-
-4. Install dependencies
-
-```sh
-npm install
-```
-
-5. Start the application!
-
-```sh
-npm start
-```
-
-The site will automatically open on your default browser and start running at `localhost:3000`
-
-## Backend Node Server
-
-1. Enter the server directory which houses the code for the backend express app
-
-```sh
-cd server
-```
-
-2. Copy the `.env.example` file as your `.env` file
-
-```sh
-cp .env.example .env
-```
 
 3. Get the `CLIENT_ID` and `CLIENT_SECRET` for your Spotify Application.
 
@@ -61,7 +27,7 @@ cp .env.example .env
 
 4. Get the `REDIRECT_URI`
 
-    - Give the `REDIRECT_URI` the value of the domain the express app will run on + "/callback". So if the express app lives at `localhost:3001` the `REDIRECT_URI` would be `http://localhost:3001/callback`
+    - Give the `REDIRECT_URI` the value of the domain the express app will run on + "api/callback". So if the express app lives at `localhost:3001` the `REDIRECT_URI` would be `http://localhost:3001/api/callback`
     - In the Spotify Dashboard click "Edit Settings"
     - Enter your Redirect URI in the Redirect URIs input box and click "ADD"
     - Scroll down and click Save
@@ -74,12 +40,26 @@ cp .env.example .env
 npm install
 ```
 
-5. Start the application!
+_Note: If you want to run this on your phone follow these steps. When [starting the React Application](#frontend-react-web-application) it will tell you which network it's running on. Take that IP address and replace all instances of `localhost` with it in your `.env` file._
+
+## Frontend React Web Application
+
+Start the application!
 
 ```sh
-npm serve
+npm start
+```
+
+The site will automatically open on your default browser and start running at `localhost:3000`
+
+## Backend Node Server
+
+Start the application!
+
+```sh
+npm run serve
 ```
 
 It will be running at `localhost:3001`
 
-_Note: `localhost` can be replaced with your IP address in both the frontend and backend and they should still work if you want to try running it from your phone as well. Make sure you update all references to it._
+_These need to be running concurrently. You can leave them running into two separate terminal sessions._
