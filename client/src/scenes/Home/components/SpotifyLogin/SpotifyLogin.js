@@ -4,7 +4,7 @@ import './spotify-login.css'
 
 const SpotifyLogin = () => {
   return (
-    <a className="login" href={`${process.env.REACT_APP_HOST}/login`}>
+    <a className="login" href={`${process.env.REACT_APP_HOST}/api/login`}>
       <img
         className="spotify-logo"
         src="spotify-logo.png"

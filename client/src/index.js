@@ -26,7 +26,7 @@ export const theme = createMuiTheme({
 
 axios.interceptors.response.use(null, error => {
   if (error.response && error.response.status === 401) {
-    window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
+    window.location.href = `${process.env.REACT_APP_HOST}/api/login?show_dialog=true`
     return new Promise(() => {})
   }
 
