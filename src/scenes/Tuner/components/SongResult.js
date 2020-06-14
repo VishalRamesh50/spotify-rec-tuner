@@ -100,7 +100,7 @@ const SongResult = ({
     let errorsCopy = [...errors]
     if (newLikedState) {
       axios
-        .put(`${process.env.REACT_APP_HOST}/api/tracks`, null, {
+        .put('/api/tracks', null, {
           withCredentials: true,
           params: {
             id: id,
@@ -119,7 +119,7 @@ const SongResult = ({
         })
     } else {
       axios
-        .delete(`${process.env.REACT_APP_HOST}/api/tracks`, {
+        .delete('/api/tracks', {
           withCredentials: true,
           params: {
             id: id,
@@ -145,7 +145,7 @@ const SongResult = ({
     if (newPlayState) {
       axios
         .put(
-          `${process.env.REACT_APP_HOST}/api/player/play`,
+          '/api/player/play',
           {
             uris: [uri],
           },
@@ -187,7 +187,7 @@ const SongResult = ({
         })
     } else {
       axios
-        .put(`${process.env.REACT_APP_HOST}/api/player/pause`, null, {
+        .put('/api/player/pause', null, {
           withCredentials: true,
         })
         .then(() => {

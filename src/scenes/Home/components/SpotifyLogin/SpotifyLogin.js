@@ -1,10 +1,11 @@
 import React from 'react'
 
 import './spotify-login.css'
+import { serverHost } from 'index'
 
 const SpotifyLogin = () => {
   return (
-    <a className="login" href={`${process.env.REACT_APP_HOST}/api/login`}>
+    <a className="login" href={`${serverHost}/api/login`}>
       <img
         className="spotify-logo"
         src="spotify-logo.png"
