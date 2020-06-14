@@ -40,7 +40,7 @@ cp .env.example .env
 npm install
 ```
 
-_Note: If you want to run this on your phone follow these steps. When [starting the React Application](#frontend-react-web-application) it will tell you which network it's running on. Take that IP address and replace all instances of `localhost` with it in your `.env` file._
+_Note: If you want to run this on your phone follow these steps. When [starting the React Application](#frontend-react-web-application) it will tell you which network it's running on. Take that IP address and replace all instances of `localhost` with it in your `.env` file. You'll have to add the new `REDIRECT_URI` in the Spotify Dashboard from step 4 as well. You'll want to hit the site from that host instead of `localhost`._
 
 ## Frontend React Web Application
 
