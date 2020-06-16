@@ -149,7 +149,7 @@ const Tuner = () => {
     }
     seedGenres = seedGenres.substring(1)
     axios
-      .get(`${process.env.REACT_APP_HOST}/recommendations`, {
+      .get('/api/recommendations', {
         withCredentials: true,
         params: {
           market: 'US',

@@ -8,6 +8,20 @@ import './index.css'
 import Home from './scenes/Home/Home'
 import Tuner from './scenes/Tuner/Tuner'
 
+export const serverHost =
+  process.env.NODE_ENV === 'production'
+    ? window.location.origin
+    : process.env.REACT_APP_HOST
+
+axios.interceptors.response.use(null, error => {
+  if (error.response && error.response.status === 401) {
+    window.location.href = `${serverHost}/api/login?show_dialog=true`
+    return new Promise(() => {})
+  }
+
+  return Promise.reject(error)
+})
+
 export const theme = createMuiTheme({
   root: {
     spotifyGreen: '#1db954',
@@ -22,15 +36,6 @@ export const theme = createMuiTheme({
       xl: 1920,
     },
   },
-})
-
-axios.interceptors.response.use(null, error => {
-  if (error.response && error.response.status === 401) {
-    window.location.href = `${process.env.REACT_APP_HOST}/login?show_dialog=true`
-    return new Promise(() => {})
-  }
-
-  return Promise.reject(error)
 })
 
 ReactDOM.render(
