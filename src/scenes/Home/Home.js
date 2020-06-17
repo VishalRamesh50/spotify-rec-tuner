@@ -14,7 +14,11 @@ const Home = () => {
       <section className="sign-in-area">
         <SpotifyLogin />
       </section>
-      <a href="https://www.github.com/VishalRamesh50/spotify-rec-tuner">
+      <a
+        target="github"
+        rel="noopener noreferrer"
+        href="https://www.github.com/VishalRamesh50/spotify-rec-tuner"
+      >
         <img className="github-logo" src="GitHub-Logo.png" alt="Github Link" />
       </a>
     </div>
