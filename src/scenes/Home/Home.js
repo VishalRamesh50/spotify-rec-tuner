@@ -15,7 +15,7 @@ const Home = () => {
         <SpotifyLogin />
       </section>
       <a href="https://www.github.com/VishalRamesh50/spotify-rec-tuner">
-        <img className="github-logo" src="Github-Logo.png" alt="Github Link" />
+        <img className="github-logo" src="GitHub-Logo.png" alt="Github Link" />
       </a>
     </div>
   )
