@@ -47,9 +47,12 @@ section {
   .main-info header h1 {
     font: 44px Poppins;
   }
+}
 
-  .sign-in-area button {
-    position: relative;
-    bottom: 0;
-  }
+.github-logo {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px 20px;
+  width: 48px;
 }
