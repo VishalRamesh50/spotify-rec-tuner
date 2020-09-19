@@ -5,6 +5,10 @@ change certain attributes to see how it affects the recommendations for your
 account. From there you can play/pause and add/remove songs to/from your
 library.
 
+![Laptop View](https://i.imgur.com/aRbwAoh.png)
+<img src="https://i.imgur.com/lxTovnf.png" alt="Mobile View 1" width="300">
+<img src="https://i.imgur.com/RhTNk6N.png" alt="Mobile View 2" width="300">
+
 # Getting Started
 
 ## Setup Environment
